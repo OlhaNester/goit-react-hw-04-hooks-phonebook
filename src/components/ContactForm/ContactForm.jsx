@@ -1,21 +1,20 @@
-import { useState, useEffect  } from 'react';
-import { nanoid } from 'nanoid';
+import { useState } from "react";
+import { nanoid } from "nanoid";
 
+import { Form, Label, Input, Button } from "./ContactForm.styled";
 
-import { Form, Label, Input, Button } from './ContactForm.styled';
+export default function ContactForm({ onSubmit }) {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
 
-export default function ContactForm(second) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
-      case 'name':
+      case "name":
         setName(value);
         break;
 
-      case 'number':
+      case "number":
         setNumber(value);
         break;
       default:
@@ -23,11 +22,20 @@ export default function ContactForm(second) {
     }
   };
 
-  const  nameInputId = nanoid();
-   const numberInputId = nanoid();
-    
-    return (<Form>
-      <form >
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(name);
+    onSubmit({ name, number });
+    setName("");
+    setNumber("");
+  };
+
+  const nameInputId = nanoid();
+  const numberInputId = nanoid();
+
+  return (
+    <Form>
+      <form onSubmit={handleSubmit}>
         <Label htmlFor="">
           Name
           <Input
@@ -56,9 +64,9 @@ export default function ContactForm(second) {
         </Label>
         <Button type="submit">Submit</Button>
       </form>
-    </Form>);
-  };
-
+    </Form>
+  );
+}
 
 // export class CotactForm extends Component {
 //   state = {
@@ -75,7 +83,7 @@ export default function ContactForm(second) {
 //   handleSubmit = event => {
 //     event.preventDefault();
 //     this.props.onSubmit(this.state);
-    
+
 //     this.setState({
 //       name: '',
 //       number: '',
@@ -117,5 +125,3 @@ export default function ContactForm(second) {
 //     );
 //   }
 // }
-
-
